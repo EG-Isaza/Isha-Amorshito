@@ -1,0 +1,176 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>I LOVE YOU</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #000000cc;
+       display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      
+    }
+      .heart {
+        width: 100px;
+        height: 100px;
+        background: rgb(26, 12, 223);
+        position: absolute;
+        transform: rotate(-45deg);
+        animation: latido 1s infinite;
+           top: 200px;  
+         left: 300px;  
+    }
+
+    .heart::before,
+    .heart::after {
+        content: "";
+        width: 100px;
+        height: 100px;
+        background: rgb(26, 12, 223);
+        border-radius: 50%;
+        position: absolute;
+    }
+
+    .heart::before {
+        top: -50px;
+        left: 0;
+    }
+
+    .heart::after {
+        left: 50px;
+        top: 0;
+    }
+
+    @keyframes latido {
+        0% { transform: rotate(-45deg) scale(1); }
+        25% { transform: rotate(-45deg) scale(1.2); }
+        40% { transform: rotate(-45deg) scale(1); }
+        60% { transform: rotate(-45deg) scale(1.2); }
+        100% { transform: rotate(-45deg) scale(1); }
+    }
+    .screen {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+    .active {
+      display: flex;
+    }
+    .password-screen {
+      flex-direction: column;
+    }
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 60px);
+      gap: 10px;
+      margin-top: 20px;
+      justify-content: center;
+    }
+    .key {
+      background-color: #f8bbd0;
+      border: none;
+      border-radius: 10px;
+      font-size: 20px;
+      padding: 15px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .key:hover {
+      background-color: #f48fb1;
+    }
+    .input-display {
+      font-size: 24px;
+      margin-top: 20px;
+      letter-spacing: 8px;
+    }
+    .notepad {
+      background-color: #fff0f6;
+      border: 3px solid #f8bbd0;
+      padding: 20px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 500px;
+      text-align: left;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      line-height: 1.6;
+    }
+    .notepad h3 {
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="heart"></div>
+<div id="passwordScreen" class="screen password-screen active">
+  <h2>🔒 Enter password</h2>
+  <div class="input-display" id="inputDisplay">••••</div>
+  <div class="keypad">
+    <button class="key" onclick="enterDigit('1')">1</button>
+    <button class="key" onclick="enterDigit('2')">2</button>
+    <button class="key" onclick="enterDigit('3')">3</button>
+    <button class="key" onclick="enterDigit('4')">4</button>
+    <button class="key" onclick="enterDigit('5')">5</button>
+    <button class="key" onclick="enterDigit('6')">6</button>
+    <button class="key" onclick="enterDigit('7')">7</button>
+    <button class="key" onclick="enterDigit('9')">9</button>
+    <button class="key" onclick="enterDigit('8')">8</button>
+    <div></div>
+    <button class="key" onclick="enterDigit('0')">0</button>
+    <div></div>
+  </div>
+</div>
+<div id="notepadScreen" class="screen">
+  <div class="notepad">
+    <h3>📅 16 abril 2026 </h3>
+    <h4>💌 Para mi princesita </h4>
+    <p>
+               Isabella ya se que llevamos muy poco y no hemos formalizado nada pero esto lo siento que es mas real que cualquier cosa
+         Eres la unica mujer q ha sacado algo que he reprimido de mi por miedo a molestar y contigo puedo ser ese niño que siempre quizo amar con todo sin miedo
+         me siento valorado a tu lado y muy seguro de que seas la mujer de mi vida TE AMO con todo lo que puede dar mi corazon quiero estar contigo todo lo que me los permitas.
+    </p>
+    <p>
+     Se q hay dias los cuales puedo ser un poco odioso o intenso y lo siento por eso pero enserio jamas habia experimentado nada igual por nadie y se que esto puede ser un detalle un poco
+     fuera de lo comun a lo que siempre te doy pero siento q es una pequeña muestra de q lo mio con usted es enserio y no solo son palabras quiero que esto sea mutuo y que siempre seamos TU Y YO
+    </p>
+    <p>
+     Siempre arreglas mis dias grises con una llamadita un mensajito cualquier cosa que venga de ti me pone feliz y muchas gracias por la "Manilla" y la cadena
+     significan mucho para mi Amorshito, Nunca olvides q siempre seras mi cachetonsita bella TE AMO princesita, mi concentida EL AMOR DE MI VIDA.
+    </p>
+    <p>
+      Te amo profundamente. ♡
+    </p>
+    <p>Con mucho amor de:Emmanuelsini Arepesini</p>
+    <p>Para: Isabelina Cafeina</p>
+  </div>
+</div>
+<script>
+  const correctPassword = '0402';
+  let input = '';
+  function enterDigit(digit) {
+    if (input.length < 4) {
+      input += digit;
+    }
+    const display = document.getElementById('inputDisplay');
+    display.textContent = input.padEnd(4, '•');
+    if (input.length === 4) {
+      if (input === correctPassword) {
+        document.getElementById('passwordScreen').classList.remove('active');
+        document.getElementById('notepadScreen').classList.add('active');
+      } else {
+        alert('Contraseña incorecta, intenta de nuevo');
+        input = '';
+        display.textContent = '••••';
+      }
+    }
+  }
+</script>
+</body>
+</html>
